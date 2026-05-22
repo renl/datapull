@@ -11,7 +11,9 @@ import (
 func renderURATable(data [][]string) *widget.Table {
 	table := widget.NewTable(
 		func() (int, int) { return len(data), len(data[0]) },
-		func() fyne.CanvasObject { return container.NewStack(canvas.NewRectangle(theme.Color(theme.ColorNameBackground)), widget.NewLabel("")) },
+		func() fyne.CanvasObject {
+			return container.NewStack(canvas.NewRectangle(theme.Color(theme.ColorNameBackground)), widget.NewLabel(""))
+		},
 		func(i widget.TableCellID, o fyne.CanvasObject) {
 			stack := o.(*fyne.Container)
 			label := stack.Objects[1].(*widget.Label)
@@ -52,6 +54,8 @@ func fetchAndDisplayURAData(content *fyne.Container, FetchDataURA func() ([][]st
 		uraData, err := FetchDataURA()
 		if err != nil {
 			content.Objects = replaceObject(content.Objects, placeholder, widget.NewLabel("Error fetching URA data"))
+		} else if len(uraData) <= 1 {
+			content.Objects = replaceObject(content.Objects, placeholder, widget.NewLabel("No URA data found"))
 		} else {
 			table := renderURATable(uraData)
 			scrollContainer := container.NewScroll(table)
