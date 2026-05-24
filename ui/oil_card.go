@@ -24,10 +24,10 @@ func fetchAndDisplayOilData(content *fyne.Container, FetchOilPrice func() (*api.
 
 func renderOilCard(data *api.OilPriceResponse) *widget.Card {
 	closeLabel := widget.NewLabel(fmt.Sprintf("Close: $%.2f", data.Close))
-	openLabel := widget.NewLabel(fmt.Sprintf("Open: $%.2f", data.Open))
-	highLabel := widget.NewLabel(fmt.Sprintf("High: $%.2f", data.High))
-	lowLabel := widget.NewLabel(fmt.Sprintf("Low: $%.2f", data.Low))
-	volumeLabel := widget.NewLabel(fmt.Sprintf("Volume: %d", data.Volume))
+	openLabel := widget.NewLabel(formatCommodityPriceLabel("Open", data.Open))
+	highLabel := widget.NewLabel(formatCommodityPriceLabel("High", data.High))
+	lowLabel := widget.NewLabel(formatCommodityPriceLabel("Low", data.Low))
+	volumeLabel := widget.NewLabel(formatCommodityVolumeLabel("Volume", data.Volume))
 
 	return widget.NewCard("Oil Price Data", "", container.NewVBox(closeLabel, openLabel, highLabel, lowLabel, volumeLabel))
 }

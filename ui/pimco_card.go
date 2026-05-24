@@ -37,8 +37,8 @@ func renderPimcoCard(data []string) *widget.Card {
 		"",
 		container.NewVBox(
 			// widget.NewLabel("Company Name: " + companyName),
-			widget.NewLabel("Current Price: " + currentPrice),
-			widget.NewLabel("Last Trading Day Price: " + lastTradingDayPrice),
+			widget.NewLabel("Current Price: "+currentPrice),
+			widget.NewLabel("Last Trading Day Price: "+lastTradingDayPrice),
 		),
 	)
 }

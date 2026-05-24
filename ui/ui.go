@@ -33,6 +33,9 @@ func SetupUI(myApp fyne.App, FetchDataURA func() ([][]string, error), FetchDataU
 			cardContainer,
 			uraTablePlaceholder,
 		}
+		cardContainer.Refresh()
+		content.Refresh()
+
 		fetchAndDisplayUS30YData(cardContainer, FetchDataUS30Y, us30yCardPlaceholder)
 		fetchAndDisplayPimcoData(cardContainer, FetchDataPimcoGISIncome, pimcoCardPlaceholder)
 		fetchAndDisplaySP500Data(cardContainer, FetchDataSP500, sp500CardPlaceholder)
@@ -47,9 +50,8 @@ func SetupUI(myApp fyne.App, FetchDataURA func() ([][]string, error), FetchDataU
 		content,
 	))
 
-	myWindow.Resize(fyne.NewSize(1600, 900)) // Set the window size to fit the data
+	myWindow.Resize(fyne.NewSize(1600, 900))
 
-	// Fetch data on launch
 	fetchAndDisplayUS30YData(cardContainer, FetchDataUS30Y, us30yCardPlaceholder)
 	fetchAndDisplayPimcoData(cardContainer, FetchDataPimcoGISIncome, pimcoCardPlaceholder)
 	fetchAndDisplaySP500Data(cardContainer, FetchDataSP500, sp500CardPlaceholder)

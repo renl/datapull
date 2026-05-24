@@ -1,67 +1,36 @@
 package api
 
-import (
-	"encoding/json"
-	"fmt"
-	"net/http"
-)
+import "net/http"
 
 type GoldPriceResponse struct {
-	Price  float64 `json:"price"`
-	Date   string  `json:"date"`
-	Source string  `json:"source"`
-	Open   float64 `json:"open"`
-	Low    float64 `json:"low"`
-	Close  float64 `json:"close"`
-	Volume int64   `json:"volume"`
-	High   float64 `json:"high"`
+	Price  float64  `json:"price"`
+	Date   string   `json:"date"`
+	Source string   `json:"source"`
+	Open   *float64 `json:"open,omitempty"`
+	Low    *float64 `json:"low,omitempty"`
+	Close  float64  `json:"close"`
+	Volume *int64   `json:"volume,omitempty"`
+	High   *float64 `json:"high,omitempty"`
 }
 
 func FetchGoldPrice() (*GoldPriceResponse, error) {
-	// GC=F is the Gold Futures symbol on Yahoo Finance
-	url := "https://query1.finance.yahoo.com/v8/finance/chart/GC=F?range=1d&interval=1d"
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
+	return fetchGoldPriceWithClient(http.DefaultClient, yahooFinanceGoldChartURL)
+}
+
+func fetchGoldPriceWithClient(client *http.Client, endpoint string) (*GoldPriceResponse, error) {
+	data, err := fetchYahooFinanceCommodityCard(client, endpoint, YahooFinanceGoldFuturesSymbol)
 	if err != nil {
 		return nil, err
 	}
 
-	req.Header.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-	req.Header.Add("accept-language", "en-US,en;q=0.9")
-	req.Header.Add("cache-control", "max-age=0")
-	req.Header.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.6613.178 Safari/537.36")
-
-	res, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer res.Body.Close()
-
-	if res.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("failed to fetch gold price: %s", res.Status)
-	}
-
-	var yahooResponse YahooFinanceResponse
-	if err := json.NewDecoder(res.Body).Decode(&yahooResponse); err != nil {
-		return nil, err
-	}
-
-	if len(yahooResponse.Chart.Result) == 0 || len(yahooResponse.Chart.Result[0].Indicators.Quote) == 0 || len(yahooResponse.Chart.Result[0].Indicators.Quote[0].Close) == 0 {
-		return nil, fmt.Errorf("no data found")
-	}
-
-	quote := yahooResponse.Chart.Result[0].Indicators.Quote[0]
-	date := yahooResponse.Chart.Result[0].Timestamp[0]
-
-	goldPriceResponse := &GoldPriceResponse{
-		Date:   fmt.Sprintf("%d", date),
-		Source: "Yahoo Finance",
-		Open:   quote.Open[0],
-		Low:    quote.Low[0],
-		Close:  quote.Close[0],
-		Volume: quote.Volume[0],
-		High:   quote.High[0],
-	}
-
-	return goldPriceResponse, nil
+	return &GoldPriceResponse{
+		Price:  data.Price,
+		Date:   data.Date,
+		Source: data.Source,
+		Open:   data.Open,
+		Low:    data.Low,
+		Close:  data.Close,
+		Volume: data.Volume,
+		High:   data.High,
+	}, nil
 }

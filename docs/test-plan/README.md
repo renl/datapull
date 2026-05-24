@@ -9,6 +9,7 @@
 | File | Contents |
 |------|----------|
 | `features/ura-refresh.md` | One file per feature — test scenarios, edge cases, integration points, validation commands |
+| `features/gold-oil-card-restore.md` | One file per feature — test scenarios, edge cases, integration points, validation commands |
 | `smoke-test.md` | Clean-room smoke test procedure (stack-agnostic bootstrap + run verification) |
 
 ## Conventions
@@ -28,3 +29,4 @@
 | Feature | File | Coverage | Notes |
 |---------|------|----------|-------|
 | URA refresh restore | `features/ura-refresh.md` | External PMI bootstrap/search flow, parser outcomes, app refresh path | Proof metric requires fresh-session non-empty rows from both standalone and app refresh paths |
+| Gold and oil card restore | `features/gold-oil-card-restore.md` | Live Yahoo futures boundary classification, gold/oil mapper fallback behavior, startup and Refresh card replacement | Proof metric requires both cards to render current live Yahoo data on startup and Refresh |

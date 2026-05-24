@@ -9,11 +9,11 @@ import (
 type US30YResponse struct {
 	FormattedQuoteResult struct {
 		FormattedQuote []struct {
-			Name  string `json:"name"`
-			Last  string `json:"last"`
-			Open  string `json:"open"`
-			High  string `json:"high"`
-			Low   string `json:"low"`
+			Name string `json:"name"`
+			Last string `json:"last"`
+			Open string `json:"open"`
+			High string `json:"high"`
+			Low  string `json:"low"`
 		} `json:"FormattedQuote"`
 	} `json:"FormattedQuoteResult"`
 }

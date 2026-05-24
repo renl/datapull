@@ -24,11 +24,11 @@ func renderUS30YCard(data [][]string) *widget.Card {
 		"US30Y Data",
 		"",
 		container.NewVBox(
-			widget.NewLabel("Name: " + data[1][0]),
-			widget.NewLabel("Last: " + data[1][1]),
-			widget.NewLabel("Open: " + data[1][2]),
-			widget.NewLabel("High: " + data[1][3]),
-			widget.NewLabel("Low: " + data[1][4]),
+			widget.NewLabel("Name: "+data[1][0]),
+			widget.NewLabel("Last: "+data[1][1]),
+			widget.NewLabel("Open: "+data[1][2]),
+			widget.NewLabel("High: "+data[1][3]),
+			widget.NewLabel("Low: "+data[1][4]),
 		),
 	)
 }
