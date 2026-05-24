@@ -10,10 +10,10 @@ import (
 
 type PimcoResponse struct {
 	Elements []struct {
-		Type           string `json:"Type"`
-		CompanyName    string `json:"CompanyName"`
+		Type            string `json:"Type"`
+		CompanyName     string `json:"CompanyName"`
 		ComponentSeries []struct {
-			Type string `json:"Type"`
+			Type   string    `json:"Type"`
 			Values []float64 `json:"Values"`
 		} `json:"ComponentSeries"`
 	} `json:"Elements"`
@@ -79,7 +79,7 @@ func FetchDataPimcoGISIncome() ([]string, error) {
 					}
 				}
 			}
-			if (found) {
+			if found {
 				break
 			}
 		}

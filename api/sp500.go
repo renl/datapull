@@ -20,7 +20,7 @@ type SP500Response struct {
 				RegularMarketVolume  int64   `json:"regularMarketVolume"`
 				ChartPreviousClose   float64 `json:"chartPreviousClose"`
 			} `json:"meta"`
-			Timestamp []int64 `json:"timestamp"`
+			Timestamp  []int64 `json:"timestamp"`
 			Indicators struct {
 				Quote []struct {
 					High []float64 `json:"high"`

@@ -37,3 +37,9 @@
    go run ./test_ura.go
    ```
    Expected: fetch completes from a fresh session and reports non-empty current URA rows.
+
+7. **Commodity restore live verification**
+   ```bash
+   go test ./... -run 'TestFetch(Gold|Oil)PriceLive|TestYahooFinanceClassifier' -count=1
+   ```
+   Expected: gold and oil restore paths pass against current live Yahoo responses, including at least one partial/meta-only classification check.
